@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "comments",
+  "info": {
+    "name": "Comment",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "c_content": {
+      "type": "richtext",
+      "required": true
+    },
+    "c_author": {
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "comment"
+    },
+    "c_post": {
+      "via": "p_comment",
+      "model": "post"
+    }
+  }
+}
