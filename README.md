@@ -13,4 +13,4 @@ Steps to Run
 2. run command (again without quotes) - "npm install"
 3. wait for all packages to install
 4. once install done run the command "npm run start"
-5. your application is now live on "http:localhost:1337"
+5. your application is now live on "http://localhost:1337"
