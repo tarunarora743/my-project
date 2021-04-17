@@ -46,7 +46,7 @@
 
       </div>
     </div>
-    <div id="three-images">
+    <div id="three-images" class="flowtow">
       <script>
         var mydata = [];
         
@@ -85,7 +85,7 @@
                 for (i=0; i<10; i++){
                   var div4 = document.createElement('div');        // Create an <div> element.
                   div4.className = "divforposts"
-                  div4.innerHTML = '<img src='+mydata3[i].p_url+'>' + '<a style="padding-bottom: 20px;">'+ mydata3[i].p_caption + ' by ' + mydata3[i].p_author + ' &nbsp &nbsp &nbsp' + mydata3[i].published_at.split("T" , 1) + ' <span style="color:blue;";><b>' + ' &nbsp' + mydata3[i].p_likes + '</b></span></a><button style="float: right;">Like</button>';                 //giving the image url from data
+                  div4.innerHTML = '<img src='+mydata3[i].p_url+'>' + '<a style="padding-bottom: 20px;">'+ mydata3[i].p_caption + ' by ' + mydata3[i].p_author + ' &nbsp &nbsp &nbsp' + mydata3[i].published_at.split("T" , 1) + ' <span style="color:blue;";><b>' + ' &nbsp' + mydata3[i].p_likes + '</b></span></a><button type="button" style="float: right;">Like</button>';                 //giving the image url from data
                   document.getElementById('lefthandsidediv').appendChild(div4);  //appending the element to parent div
                 }
               });
@@ -112,7 +112,7 @@
                 for (i=0; i<10; i++){
                   var div3 = document.createElement('div');        // Create an <div> element.
                   div3.className = "divforposts"
-                  div3.innerHTML = '<img src='+mydata2[i].p_url+'>' + '<a style="padding-bottom: 20px;">'+ mydata2[i].p_caption + ' by ' + mydata2[i].p_author + ' <b>' + mydata2[i].p_likes + '</b></a><button style="float: right;">Like</button>';                 //giving the image url from data
+                  div3.innerHTML = '<img src='+mydata2[i].p_url+'>' + '<a style="padding-bottom: 20px;">'+ mydata2[i].p_caption + ' by ' + mydata2[i].p_author + ' &nbsp &nbsp &nbsp' + mydata2[i].published_at.split("T" , 1) + ' <span style="color:blue;";><b>' + ' &nbsp' + mydata2[i].p_likes + '</b></span></a><button type="button" style="float: right;">Like</button>';                 //giving the image url from data
                   document.getElementById('righthandsidediv').appendChild(div3);  //appending the element to parent div
                 }
               });
@@ -128,19 +128,19 @@
       <script>
        
 
-        $(document).ready(function () {
-          $.ajax({
-            url: "http://localhost:1337/restaurants",
-            type: "GET",
-            success: function(result){
-              console.log(result)
-            },
-            error: function(error){
-              console.log(error);
-            }
-          }) 
+        // $(document).ready(function () {
+        //   $.ajax({
+        //     url: "http://localhost:1337/restaurants",
+        //     type: "GET",
+        //     success: function(result){
+        //       console.log(result)
+        //     },
+        //     error: function(error){
+        //       console.log(error);
+        //     }
+        //   }) 
 
-          }); 
+        //   }); 
            
       </script>
       <a>FlowTow is new, exciting, image sharing service like nothing you've seen before!</a>

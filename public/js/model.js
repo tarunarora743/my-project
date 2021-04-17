@@ -39,6 +39,14 @@ const Model = {
     // getPosts - return an array of post objects
     getPosts: function() {
         //before that you may need to sort the posts by their timestamp
+        const Http = new XMLHttpRequest();
+        const url='http://localhost:1337/posts';
+        Http.open("GET", url);
+        Http.send();
+
+        Http.onreadystatechange = (e) => {
+            this.data.posts = Http.responseText
+        }
         return this.data.posts;
     },
 
@@ -81,6 +89,9 @@ const Model = {
 
     //getRandomPosts - return N random posts as an array
     getRandomPosts: function(N){
+        var myarr = this.getPosts();
+        var result = this.getRandom(myarr, N);
+        return result;
         
     },
 
@@ -93,7 +104,25 @@ const Model = {
     // getPopularPosts - return the N most popular as an array
     // posts, ordered by the number of likes
     getPopularPosts: function(N) {
-       
+        var mydata2 = this.getPosts();
+        mydata2.sort(function(a,b){
+            return b.p_likes - a.p_likes;
+        });
+        return mydata2.slice(0,N);
     },
+
+    getRandom: function(arr, n) {
+        var result = new Array(n),
+            len = arr.length,
+            taken = new Array(len);
+        if (n > len)
+            throw new RangeError("getRandom: more elements taken than available");
+        while (n--) {
+            var x = Math.floor(Math.random() * len);
+            result[n] = arr[x in taken ? taken[x] : x];
+            taken[x] = --len in taken ? taken[len] : len;
+        }
+        return result;
+    }
 
 }

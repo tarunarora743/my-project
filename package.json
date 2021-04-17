@@ -9,7 +9,9 @@
     "build": "strapi build",
     "strapi": "strapi"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "cypress": "^7.1.0"
+  },
   "dependencies": {
     "strapi": "3.5.4",
     "strapi-admin": "3.5.4",
