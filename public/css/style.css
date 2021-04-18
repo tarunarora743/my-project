@@ -24,7 +24,7 @@ img {
 }
 
 footer {
-    background-color: yellow;
+    background-color: gainsboro;
 }
 
 nav{
@@ -99,6 +99,10 @@ nav{
     
 }
 
+#three-images div:hover{      /* this whole block is for aligning the images to center */
+    background-color: aquamarine;    
+}
+
 
 /* this is the div where popular and recent posts sit */
 #target{
@@ -111,7 +115,6 @@ nav{
 }
 
 .containerdiv{
-    border: 3px solid mediumseagreen;
     height: 97%;
     width: 49%;
     margin: 3px;
@@ -122,6 +125,10 @@ nav{
     height: 7%;
     width: 88%;
     float: right;
+}
+
+.divforposts{
+    background-color: aquamarine;     
 }
 
 
@@ -136,6 +143,5 @@ nav{
     width: 100%;
     text-align: center;
 }
-
 
 

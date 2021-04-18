@@ -10,6 +10,7 @@
     <title>FlowTow</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link href="css/ionicons/css/ionicons.min.css" rel="stylesheet">
 
     <!-- Include Handlebars from a CDN -->
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
@@ -71,23 +72,26 @@
         <h4 style="text-align: center; color: rgb(114, 70, 131);">Recent Posts</h4>
         
         <script> //script for adding images by timestamp.. involves sorting the array of objects with their timestamp
-          var mydata3 = [];
+         // var mydata3 = [];
           
             $(document).ready(function () {
-              $.getJSON('js/sample.json', function(data) {
-                for(i=0; i<data.length; i++){
-                  mydata3.push(data[i]);
-                } 
-                console.log(mydata3);
-                mydata3.sort(function(a,b){
+              $.ajax({
+                url: "http://localhost:1337/posts",
+                type: "GET",
+                success: function(result){
+                  var mydata3 = result;
+                  mydata3.sort(function(a,b){
                   return b.published_at - a.published_at;
-                });
-                for (i=0; i<10; i++){
+                  });
+
+                  for (i=0; i<10; i++){
                   var div4 = document.createElement('div');        // Create an <div> element.
                   div4.className = "divforposts"
-                  div4.innerHTML = '<img src='+mydata3[i].p_url+'>' + '<a style="padding-bottom: 20px;">'+ mydata3[i].p_caption + ' by ' + mydata3[i].p_author + ' &nbsp &nbsp &nbsp' + mydata3[i].published_at.split("T" , 1) + ' <span style="color:blue;";><b>' + ' &nbsp' + mydata3[i].p_likes + '</b></span></a><button type="button" style="float: right;">Like</button>';                 //giving the image url from data
+                  div4.innerHTML = '<img src='+mydata3[i].p_url+'>' + '<a style="padding-bottom: 20px;">'+ mydata3[i].p_caption + ' by ' + mydata3[i].p_author.username + ' &nbsp &nbsp &nbsp' + mydata3[i].published_at.split("T" , 1) + ' <span style="color:blue;";><b>' + ' &nbsp' + mydata3[i].p_likes + '</b></span></a><button type="button" style="float: right;">Like</button>';                 //giving the image url from data
                   document.getElementById('lefthandsidediv').appendChild(div4);  //appending the element to parent div
+                  }
                 }
+                
               });
             });          
         </script>
@@ -98,22 +102,23 @@
       <div class="containerdiv" id="righthandsidediv"> 
         <h4 style="text-align: center; color: rgb(114, 70, 131);">Popular Posts</h4>
         <script> //script for adding images by popularity.. involves sorting the array of objects(posts)
-          var mydata2 = [];
-          
             $(document).ready(function () {
-              $.getJSON('js/sample.json', function(data) {
-                for(i=0; i<data.length; i++){
-                  mydata2.push(data[i]);
-                } 
-                console.log(mydata2);
-                mydata2.sort(function(a,b){
+              $.ajax({
+                url: "http://localhost:1337/posts",
+                type: "GET",
+                success: function(result){
+                  var mydata2 = result;
+                  console.log(mydata2);
+                  mydata2.sort(function(a,b){
                   return b.p_likes - a.p_likes;
-                });
-                for (i=0; i<10; i++){
+                  });
+
+                  for (i=0; i<10; i++){
                   var div3 = document.createElement('div');        // Create an <div> element.
                   div3.className = "divforposts"
-                  div3.innerHTML = '<img src='+mydata2[i].p_url+'>' + '<a style="padding-bottom: 20px;">'+ mydata2[i].p_caption + ' by ' + mydata2[i].p_author + ' &nbsp &nbsp &nbsp' + mydata2[i].published_at.split("T" , 1) + ' <span style="color:blue;";><b>' + ' &nbsp' + mydata2[i].p_likes + '</b></span></a><button type="button" style="float: right;">Like</button>';                 //giving the image url from data
+                  div3.innerHTML = '<img src='+mydata2[i].p_url+'>' + '<a style="padding-bottom: 20px;">'+ mydata2[i].p_caption + ' by ' + mydata2[i].p_author.username + ' &nbsp &nbsp &nbsp' + mydata2[i].published_at.split("T" , 1) + ' <span style="color:blue;";><b>' + ' &nbsp' + mydata2[i].p_likes + '</b></span></a><button type="button" style="float: right;">Like</button>';                 //giving the image url from data
                   document.getElementById('righthandsidediv').appendChild(div3);  //appending the element to parent div
+                  }
                 }
               });
             });          
@@ -126,21 +131,29 @@
     <div>
       <h3>What is FlowTow?</h3>
       <script>
-       
+
+        
 
         // $(document).ready(function () {
+        //   var ddd = []
         //   $.ajax({
-        //     url: "http://localhost:1337/restaurants",
+        //     url: "http://localhost:1337/posts",
         //     type: "GET",
         //     success: function(result){
         //       console.log(result)
-        //     },
-        //     error: function(error){
-        //       console.log(error);
+        //       ddd = result;
+        //       for (i=0; i<10; i++){
+        //           var div7 = document.createElement('div');        // Create an <div> element.
+        //           div7.className = "divforposts"
+        //           div7.innerHTML = '<img src='+ddd[i].p_url+'>' + '<a style="padding-bottom: 20px;">'+ ddd[i].p_caption + ' by ' + ddd[i].p_author + ' &nbsp &nbsp &nbsp' + ddd[i].published_at.split("T" , 1) + ' <span style="color:blue;";><b>' + ' &nbsp' + ddd[i].p_likes + '</b></span></a><button type="button" style="float: right;">Like</button>';                 //giving the image url from data
+        //           document.getElementById('whatis').appendChild(div7);  //appending the element to parent div
+        //         }
+
+
         //     }
         //   }) 
 
-        //   }); 
+        // }); 
            
       </script>
       <a>FlowTow is new, exciting, image sharing service like nothing you've seen before!</a>

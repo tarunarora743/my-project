@@ -98,6 +98,11 @@ const Model = {
     // getRecentPosts - return the N most recent as an array
     //  posts, ordered by timestamp, most recent first
     getRecentPosts: function(N) {
+        var mydata6 = this.getPosts();
+        mydata6.sort(function(a,b){
+            return b.published_at - a.published_at;  //implement new Date(a.published_at)
+        });
+        return mydata2.slice(0,N);
         
     },
 
