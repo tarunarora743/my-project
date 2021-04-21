@@ -100,9 +100,9 @@ const Model = {
     getRecentPosts: function(N) {
         var mydata6 = this.getPosts();
         mydata6.sort(function(a,b){
-            return b.published_at - a.published_at;  //implement new Date(a.published_at)
+            return new Date(b.published_at) - new Date(a.published_at);  
         });
-        return mydata2.slice(0,N);
+        return mydata6.slice(0,N);
         
     },
 

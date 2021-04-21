@@ -81,13 +81,13 @@
                 success: function(result){
                   var mydata3 = result;
                   mydata3.sort(function(a,b){
-                  return b.published_at - a.published_at;
+                    
+                    return new Date(b.published_at) - new Date(a.published_at)
                   });
-
                   for (i=0; i<10; i++){
                   var div4 = document.createElement('div');        // Create an <div> element.
                   div4.className = "divforposts"
-                  div4.innerHTML = '<img src='+mydata3[i].p_url+'>' + '<a style="padding-bottom: 20px;">'+ mydata3[i].p_caption + ' by ' + mydata3[i].p_author.username + ' &nbsp &nbsp &nbsp' + mydata3[i].published_at.split("T" , 1) + ' <span style="color:blue;";><b>' + ' &nbsp' + mydata3[i].p_likes + '</b></span></a><button type="button" style="float: right;">Like</button>';                 //giving the image url from data
+                  div4.innerHTML = '<img src='+mydata3[i].p_url+'>' + '<a style="padding-bottom: 20px;">'+ mydata3[i].p_caption + ' by ' + mydata3[i].p_author.username + ' &nbsp &nbsp &nbsp' + mydata3[i].published_at.split('T')[0] + ' <span style="color:blue;";><b>' + ' &nbsp' + mydata3[i].p_likes + '</b></span></a><button type="button" style="float: right;">Like</button>';                 //giving the image url from data
                   document.getElementById('lefthandsidediv').appendChild(div4);  //appending the element to parent div
                   }
                 }
@@ -98,7 +98,7 @@
       </div>
 
 
-      <!--This is fo popular posts-->
+      <!--This is for popular posts-->
       <div class="containerdiv" id="righthandsidediv"> 
         <h4 style="text-align: center; color: rgb(114, 70, 131);">Popular Posts</h4>
         <script> //script for adding images by popularity.. involves sorting the array of objects(posts)
