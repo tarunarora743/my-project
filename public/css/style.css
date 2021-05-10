@@ -145,3 +145,26 @@ nav{
 }
 
 
+.sociallist{
+    color: blue;
+    display: inline;
+    list-style: none;
+    text-align: center;
+    margin: 40px 30px;
+    font-size: 20px;
+    padding: 40px 40px;
+}
+
+.sociallist:hover{
+    color: red;
+}
+
+.social{
+    margin-top: 10px;
+    padding-top: 50px;
+    text-align: center;
+}
+
+#copyright {
+    text-align: center;
+}
