@@ -26,4 +26,11 @@
 //     redraw();
 // };
 
+import {Model} from './model.js'
+
+window.onload = async function() {
+    await Model.getPosts();
+    console.log("wowza2", await Model.getRecentPosts(10));
+}
+
 

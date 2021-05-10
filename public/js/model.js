@@ -27,7 +27,8 @@ const Model = {
     
     //this will hold the post data stored in the model
     data: {
-        posts: []
+        posts: [],
+        users: []
     },
 
     // updatePosts - retrieve the latest list of posts from the server API
@@ -75,8 +76,28 @@ const Model = {
     //      by submitting a PUT request to the server API
     //      postId - is the id of the post
     // when the request is resolved, creates an "likeAdded" event
-    addLike: function (postId) {
-        
+    addLike: async function (postId) {
+         let requestbody = {
+            "p_likes": 12,
+        }
+    
+        const rawResponse = await fetch(`/posts/${postId}`, {
+            method: 'PUT',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestbody)
+         });
+         const content = await rawResponse.json();
+             
+    
+          if (rawResponse.status === 200) {
+            
+            return content;
+          }else {
+              return "something went wrong";
+          }
     },
 
     // addComment - add a comment to a post 

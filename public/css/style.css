@@ -127,7 +127,7 @@ nav{
     float: right;
 }
 
-.divforposts{
+.divforposts:hover{
     background-color: aquamarine;     
 }
 
