@@ -77,15 +77,13 @@
               var newLoginLayout = document.getElementById("loginform");
               newLoginLayout.innerHTML = `<a><b>Logged in as ${username} </b></a><input type="button" value="Logout" style="float: right;">`
             }else{
-              var newLoginFailLayout = document.getElementById("loginform");
+              var newLoginFailLayout = document.getElementById("errorTarget");
               var loginFailElement = document.createElement('a');
               //clearing the input form
               document.getElementById("username").value= '';
               document.getElementById("password").value = '';
 
-              loginFailElement.innerHTML = `<b style="color:red;">Login Failed, please try again</b>`;
-  
-              newLoginFailLayout.appendChild(loginFailElement);
+              newLoginFailLayout.innerHTML = `<b style="color:red;">Login Failed, please try again</b>`;
             }
           }
   
@@ -100,6 +98,7 @@
         <a style="margin-right: 5px;">Password :</a>
         <input type="password" name="password" id="password" placeholder="Your password"/>
         <input type="submit">
+        <a id="errorTarget"></a>
        </form> 
      <!--form implemented above-->
       <div id="heading">
