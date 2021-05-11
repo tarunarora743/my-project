@@ -137,10 +137,23 @@ nav{
 
 
 /* this is for the links at the end of the page*/
-.social2{
-    display: flex;
-    list-style-type: none;
-    width: 100%;
+.termslist{
+    color: blue;
+    display: inline;
+    list-style: none;
+    text-align: center;
+    margin: 10px 10px;
+    font-size: 20px;
+    padding: 10px 10px;
+}
+
+.termslist:hover{
+    color: red;
+}
+
+.terms{
+    margin-top: 10px;
+    padding-top: 15px;
     text-align: center;
 }
 

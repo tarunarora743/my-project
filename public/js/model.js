@@ -51,6 +51,20 @@ const Model = {
         return this.data.posts;
     },
 
+    getPosts2: async function() {
+        //before that you may need to sort the posts by their timestamp
+        const rawResponse = await fetch('posts', {
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+         });
+        const content = await rawResponse.json();
+        this.data.posts = content;
+        return content;
+    },
+
     // getPost - return a single post given its id
     getPost: function(postid) {
 
@@ -77,7 +91,7 @@ const Model = {
     //      postId - is the id of the post
     // when the request is resolved, creates an "likeAdded" event
     addLike: async function (postId) {
-         let requestbody = {
+        let requestbody = {
             "p_likes": 12,
         }
     

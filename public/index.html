@@ -113,22 +113,19 @@
     </div>
   <div id = "bigdiv">
     <div id="three-images" class="flowtow">
-      <script>
-        var mydata = [];
+      <!--Script for making 3 random posts at top-->
+      <script type="module">
         
-          $(document).ready(function () {
-            $.getJSON('js/sample.json', function(data) {
-              for(i=0; i<data.length; i++){
-                mydata.push(data[i]);
-              } 
-              for (i=0; i<3; i++){
+        var mydata = [];
+        import{Model} from '/js/model.js'
+        mydata = await Model.getPosts2();
+        
+              for (var i=0; i<3; i++){
                 var index = Math.floor(Math.random() * mydata.length);
                 var div1 = document.createElement('div');        // Create an <img> element.
-                div1.innerHTML = '<img src='+mydata[index].p_url+'>' + '<a class="caption">'+ mydata[index].p_caption + ' by ' + mydata[index].p_author + ' <b>' + mydata[index].p_likes + '</b></a>';                 //giving the image url from data
+                div1.innerHTML = '<img src='+mydata[index].p_url+'>' + '<a class="caption">'+ mydata[index].p_caption + ' by ' + mydata[index].p_author.username + ' <b>' + mydata[index].p_likes + '</b></a>';                 //giving the image url from data
                 document.getElementById('three-images').appendChild(div1);  //appending the image to the div
-              }
-            });
-          });          
+              }       
       </script>
       </div>
       
@@ -136,58 +133,14 @@
       <div class="containerdiv" id="lefthandsidediv"> <!--This is the left hand side box for recent posts-->
         <h4 style="text-align: center; color: rgb(114, 70, 131);">Recent Posts</h4>
         
-        <script> //script for adding images by timestamp.. involves sorting the array of objects with their timestamp
-         // var mydata3 = [];
-          
-            $(document).ready(function () {
-              $.ajax({
-                url: "http://localhost:1337/posts",
-                type: "GET",
-                success: function(result){
-                  var mydata3 = result;
-                  mydata3.sort(function(a,b){
-                    
-                    return new Date(b.published_at) - new Date(a.published_at);
-                  });
-                  for (i=0; i<10; i++){
-                  var div4 = document.createElement('div');        // Create an <div> element.
-                  div4.className = "divforposts"
-                  div4.innerHTML = '<img src='+mydata3[i].p_url+'>' + '<a style="padding-bottom: 20px;">'+ mydata3[i].p_caption + ' by ' + mydata3[i].p_author.username + ' &nbsp &nbsp &nbsp' + mydata3[i].published_at.split('T')[0] + ' <span style="color:blue;";><b>' + ' &nbsp' + mydata3[i].p_likes + '</b></span></a><button type="button" style="float: right;">Like</button>';                 //giving the image url from data
-                  document.getElementById('lefthandsidediv').appendChild(div4);  //appending the element to parent div
-                  }
-                }
-                
-              });
-            });          
-        </script>
+       
+
       </div>
       
       
       <!--This is for popular posts-->
       <div class="containerdiv" id="righthandsidediv"> 
         <h4 style="text-align: center; color: rgb(114, 70, 131);">Popular Posts</h4>
-        <script> //script for adding images by popularity.. involves sorting the array of objects(posts)
-            $(document).ready(function () {
-              $.ajax({
-                url: "http://localhost:1337/posts",
-                type: "GET",
-                success: function(result){
-                  var mydata2 = result;
-                  //console.log(mydata2);
-                  mydata2.sort(function(a,b){
-                  return b.p_likes - a.p_likes;
-                  });
-      
-                  for (i=0; i<10; i++){
-                  var div3 = document.createElement('div');        // Create an <div> element.
-                  div3.className = "divforposts"
-                  div3.innerHTML = '<img src='+mydata2[i].p_url+'>' + '<a style="padding-bottom: 20px;">'+ mydata2[i].p_caption + ' by ' + mydata2[i].p_author.username + ' &nbsp &nbsp &nbsp' + mydata2[i].published_at.split("T" , 1) + ' <span style="color:blue;";><b>' + ' &nbsp' + mydata2[i].p_likes + '</b></span></a><button type="button" style="float: right;">Like</button>';                 //giving the image url from data
-                  document.getElementById('righthandsidediv').appendChild(div3);  //appending the element to parent div
-                  }
-                }
-              });
-            });          
-        </script>
       </div>
       </div>
   </div>
@@ -196,35 +149,6 @@
   <section id="whatis">
     <div>
       <h3>What is FlowTow?</h3>
-      <script type="module">
-
-        import {Model} from '/js/model.js';
-
-        console.log("wowza" , await Model.getPosts()); //This is still logging empty array..?
-        
-
-        // $(document).ready(function () {
-        //   var ddd = []
-        //   $.ajax({
-        //     url: "http://localhost:1337/posts",
-        //     type: "GET",
-        //     success: function(result){
-        //       console.log(result)
-        //       ddd = result;
-        //       for (i=0; i<10; i++){
-        //           var div7 = document.createElement('div');        // Create an <div> element.
-        //           div7.className = "divforposts"
-        //           div7.innerHTML = '<img src='+ddd[i].p_url+'>' + '<a style="padding-bottom: 20px;">'+ ddd[i].p_caption + ' by ' + ddd[i].p_author + ' &nbsp &nbsp &nbsp' + ddd[i].published_at.split("T" , 1) + ' <span style="color:blue;";><b>' + ' &nbsp' + ddd[i].p_likes + '</b></span></a><button type="button" style="float: right;">Like</button>';                 //giving the image url from data
-        //           document.getElementById('whatis').appendChild(div7);  //appending the element to parent div
-        //         }
-
-
-        //     }
-        //   }) 
-
-        // }); 
-           
-      </script>
       <a>FlowTow is new, exciting, image sharing service like nothing you've seen before!</a>
       <br>
       <a>FlowTow supports logging in users, posting images, making comments and viewing images in various ways.</a>
@@ -241,18 +165,64 @@
       </ul>
     </div>
 
-    <ul class="footer-tos social2">
-      <li><a href="#">Terms</a></li>
-      <li><a href="#">Privacy</a></li>
-      <li><a href="#">Cookies</a></li>
+    <ul class="terms">
+      <li class="termslist"><a href="#">Terms</a></li>
+      <li class="termslist"><a href="#">Privacy</a></li>
+      <li class="termslist"><a href="#">Cookies</a></li>
     </ul>
     
     <p id="copyright">All content and images subject to copyright &copy; COMP2110/6110 FlowTow 2021.</p>
   </footer>
 
 
-  <!-- Templates -->
 
+
+  <!--Script for doing the most recent and popular posts-->
+  <script type="module"> //script for adding images by timestamp.. involves sorting the array of objects with their timestamp
+    
+
+    //making recent posts layout
+     var recentPostData = [];
+     import{Model} from '/js/model.js'
+     recentPostData = await Model.getPosts2();  
+     var popularPostData = recentPostData;   
+     recentPostData.sort(function(a,b){
+      return new Date(b.published_at) - new Date(a.published_at);
+     });
+
+     for (var i=0; i<10; i++){
+       var div4 = document.createElement('div');        // Create an <div> element.
+       div4.className = "divforposts"
+       div4.innerHTML = '<img src='+recentPostData[i].p_url+'>' + '<a style="padding-bottom: 20px;">'+ recentPostData[i].p_caption + ' by ' + recentPostData[i].p_author.username + ' &nbsp &nbsp &nbsp' + recentPostData[i].published_at.split('T')[0] + ' <span style="color:blue;";><b>' + ' &nbsp' + recentPostData[i].p_likes + '</b></span></a><button class="like" type="button" style="float: right;">Like</button>';                 //giving the image url from data
+       document.getElementById('lefthandsidediv').appendChild(div4);  //appending the element to parent div
+     }
+
+     //Making popular posts layout
+     popularPostData.sort(function(a,b){
+      return b.p_likes - a.p_likes;
+     });
+ 
+      for (i=0; i<10; i++){
+        var div3 = document.createElement('div');        // Create an <div> element.
+        div3.className = "divforposts"
+        div3.innerHTML = '<img src='+popularPostData[i].p_url+'>' + '<a style="padding-bottom: 20px;">'+ popularPostData[i].p_caption + ' by ' + popularPostData[i].p_author.username + ' &nbsp &nbsp &nbsp' + popularPostData[i].published_at.split("T" , 1) + ' <span style="color:blue;";><b>' + ' &nbsp' + popularPostData[i].p_likes + '</b></span></a><button class="like" type="button" style="float: right;">Like</button>';                 //giving the image url from data
+        document.getElementById('righthandsidediv').appendChild(div3);  //appending the element to parent div
+      }
+      
+
+     document.querySelectorAll('.like').forEach(item => {
+     item.onclick = async function(){
+      //Need to do something here
+      this.innerHTML = "wowzaaa" 
+       // var likeNumber = this.previousSibling.firstElementChild.firstElementChild.innerHTML.split(';')[1];
+       // console.log (likeNumber);
+       // await Model.addLike(6);
+     }
+   })
+  
+     
+              
+   </script>
 
   
 
