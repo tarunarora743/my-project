@@ -30,7 +30,13 @@ import {Model} from './model.js'
 
 window.onload = async function() {
     await Model.getPosts();
-    console.log("wowza2", await Model.getPosts2());
+    await Model.getUsers();
+    await Model.getComments();
+
+    console.log("wowza" , Model.data.posts);
+    console.log("wowza" , Model.data.users);
+    console.log("wowza" , Model.data.comments);
+    //console.log("wowza2", await Model.getPosts2());
 }
 
 

@@ -24,11 +24,13 @@ const Model = {
     postsUrl: '/posts', 
     uploadUrl: '/upload',  
     commentsUrl: '/comments',
+    usersUrl: '/users',
     
     //this will hold the post data stored in the model
     data: {
         posts: [],
-        users: []
+        users: [],
+        comments: []
     },
 
     // updatePosts - retrieve the latest list of posts from the server API
@@ -41,7 +43,7 @@ const Model = {
     getPosts: function() {
         //before that you may need to sort the posts by their timestamp
         const Http = new XMLHttpRequest();
-        const url='http://localhost:1337/posts';
+        const url=this.postsUrl;
         Http.open("GET", url);
         Http.send();
 
@@ -49,6 +51,34 @@ const Model = {
             this.data.posts = Http.responseText
         }
         return this.data.posts;
+    },
+
+     // getUsers - return an array of users objects
+     getUsers: function() {
+
+        const Http = new XMLHttpRequest();
+        const url=this.usersUrl;
+        Http.open("GET", url);
+        Http.send();
+
+        Http.onreadystatechange = (e) => {
+            this.data.users = Http.responseText
+        }
+        return this.data.users;
+    },
+
+     // getUsers - return an array of users objects
+     getComments: function() {
+         
+        const Http = new XMLHttpRequest();
+        const url=this.commentsUrl;
+        Http.open("GET", url);
+        Http.send();
+
+        Http.onreadystatechange = (e) => {
+            this.data.comments = Http.responseText
+        }
+        return this.data.comments;
     },
 
     getPosts2: async function() {
@@ -66,8 +96,8 @@ const Model = {
     },
 
     // getPost - return a single post given its id
-    getPost: function(postid) {
-
+    getPost:  function(postid) {
+        return this.data.posts[postid-1];   
     },
 
     setPosts: function(posts) {
@@ -83,7 +113,8 @@ const Model = {
 
     // getUserPosts - return just the posts for one user as an array
     getUserPosts: function(userid) {
-        
+
+      return this.data.users[userid-1];  
     },
 
     // addLike - increase the number of likes by 1 
