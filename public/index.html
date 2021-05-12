@@ -43,14 +43,17 @@
           
           
 
-        })
+        });
+
+        console.log("came here11")
 
         import {Views} from '/js/views.js'
         //example using js
         document.getElementById("allposts").addEventListener("click", function(){
-          var mainPageView = document.createElement('div');
-          mainPageView.innerHTML = Views.mainPageView ;
-          document.getElementById("bigdiv").appendChild(mainPageView);
+          console.log("came here22")
+          var allPostsView = document.createElement('div');
+          allPostsView.innerHTML = Views.allPostsView ;
+          document.getElementById("bigdiv").innerHTML =  Views.allPostsView;
         })
 
        
@@ -112,37 +115,23 @@
       </div>
     </div>
   <div id = "bigdiv">
-    <div id="three-images" class="flowtow">
-      <!--Script for making 3 random posts at top-->
-      <script type="module">
-        
-        var mydata = [];
-        import{Model} from '/js/model.js'
-        mydata = await Model.getPosts2();
-        
-              for (var i=0; i<3; i++){
-                var index = Math.floor(Math.random() * mydata.length);
-                var div1 = document.createElement('div');        // Create an <img> element.
-                div1.innerHTML = '<img src='+mydata[index].p_url+'>' + '<a class="caption">'+ mydata[index].p_caption + ' by ' + mydata[index].p_author.username + ' <b>' + mydata[index].p_likes + '</b></a>';                 //giving the image url from data
-                document.getElementById('three-images').appendChild(div1);  //appending the image to the div
-              }       
-      </script>
-      </div>
+    <div id="three-images" class="flowtow">      
+    </div>
+    
+    <div id="target">
+    <div class="containerdiv" id="lefthandsidediv"> <!--This is the left hand side box for recent posts-->
+      <h4 style="text-align: center; color: rgb(114, 70, 131);">Recent Posts</h4>
       
-      <div id="target">
-      <div class="containerdiv" id="lefthandsidediv"> <!--This is the left hand side box for recent posts-->
-        <h4 style="text-align: center; color: rgb(114, 70, 131);">Recent Posts</h4>
-        
-       
+     
 
-      </div>
-      
-      
-      <!--This is for popular posts-->
-      <div class="containerdiv" id="righthandsidediv"> 
-        <h4 style="text-align: center; color: rgb(114, 70, 131);">Popular Posts</h4>
-      </div>
-      </div>
+    </div>
+    
+    
+    <!--This is for popular posts-->
+    <div class="containerdiv" id="righthandsidediv"> 
+      <h4 style="text-align: center; color: rgb(114, 70, 131);">Popular Posts</h4>
+    </div>
+    </div>
   </div>
 
       <!-- about section-->
@@ -180,15 +169,26 @@
   <script type="module"> //script for adding images by timestamp.. involves sorting the array of objects with their timestamp
     
 
-    //making recent posts layout
+    
      var recentPostData = [];
      import{Model} from '/js/model.js'
      recentPostData = await Model.getPosts2();  
+
+
+     //making 3 random post layout
+     var mydata = recentPostData
+     for (var i=0; i<3; i++){
+                var index = Math.floor(Math.random() * mydata.length);
+                var div1 = document.createElement('div');        // Create an <img> element.
+                div1.innerHTML = '<img src='+mydata[index].p_url+'>' + '<a class="caption">'+ mydata[index].p_caption + ' by ' + mydata[index].p_author.username + ' <b>' + mydata[index].p_likes + '</b></a>';                 //giving the image url from data
+                document.getElementById('three-images').appendChild(div1);  //appending the image to the div
+              }       
      var popularPostData = recentPostData;   
      recentPostData.sort(function(a,b){
       return new Date(b.published_at) - new Date(a.published_at);
      });
 
+     //making recent posts layout
      for (var i=0; i<10; i++){
        var div4 = document.createElement('div');        // Create an <div> element.
        div4.className = "divforposts"
