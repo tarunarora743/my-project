@@ -21,7 +21,7 @@
       <nav id="topdiv">
           <ul id="logo">
               
-              <li><a class="topmenu" href="#" >Home</a></li>
+              <li><a class="topmenu" id="home" href="#" >Home</a></li>
               
               
               <li><a class="topmenu" id="allposts" href="#!/all-posts" >All Posts</a></li>
@@ -47,14 +47,7 @@
 
         console.log("came here11")
 
-        import {Views} from '/js/views.js'
-        //example using js
-        document.getElementById("allposts").addEventListener("click", function(){
-          console.log("came here22")
-          var allPostsView = document.createElement('div');
-          allPostsView.innerHTML = Views.allPostsView ;
-          document.getElementById("bigdiv").innerHTML =  Views.allPostsView;
-        })
+     
 
        
 
@@ -115,24 +108,7 @@
       </div>
     </div>
   <div id = "bigdiv">
-    <div id="three-images" class="flowtow">      
     </div>
-    
-    <div id="target">
-    <div class="containerdiv" id="lefthandsidediv"> <!--This is the left hand side box for recent posts-->
-      <h4 style="text-align: center; color: rgb(114, 70, 131);">Recent Posts</h4>
-      
-     
-
-    </div>
-    
-    
-    <!--This is for popular posts-->
-    <div class="containerdiv" id="righthandsidediv"> 
-      <h4 style="text-align: center; color: rgb(114, 70, 131);">Popular Posts</h4>
-    </div>
-    </div>
-  </div>
 
       <!-- about section-->
   <section id="whatis">
@@ -167,16 +143,31 @@
 
   <!--Script for doing the most recent and popular posts-->
   <script type="module"> //script for adding images by timestamp.. involves sorting the array of objects with their timestamp
-    
+    import{Model} from '/js/model.js'
+    import {Views} from '/js/views.js'
+        //example using js
+        document.getElementById("allposts").addEventListener("click", function(){
+          console.log("came here22")
+          var allPostsView = document.createElement('div');
+          allPostsView.innerHTML = Views.allPostsView ;
+          document.getElementById("bigdiv").innerHTML =  Views.allPostsView;
+        })
 
-    
-     var recentPostData = [];
-     import{Model} from '/js/model.js'
+        document.getElementById("home").addEventListener("click", function(){
+          console.log("came here33")
+          makeHomeView();
+        })
+
+
+    async function  makeHomeView(){
+    var recentPostData = [];
+     
      recentPostData = await Model.getPosts2();  
 
 
      //making 3 random post layout
      var mydata = recentPostData
+     document.getElementById("bigdiv").innerHTML =  Views.mainPageView;
      for (var i=0; i<3; i++){
                 var index = Math.floor(Math.random() * mydata.length);
                 var div1 = document.createElement('div');        // Create an <img> element.
@@ -207,18 +198,42 @@
         div3.innerHTML = '<img src='+popularPostData[i].p_url+'>' + '<a style="padding-bottom: 20px;">'+ popularPostData[i].p_caption + ' by ' + popularPostData[i].p_author.username + ' &nbsp &nbsp &nbsp' + popularPostData[i].published_at.split("T" , 1) + ' <span style="color:blue;";><b>' + ' &nbsp' + popularPostData[i].p_likes + '</b></span></a><button class="like" type="button" style="float: right;">Like</button>';                 //giving the image url from data
         document.getElementById('righthandsidediv').appendChild(div3);  //appending the element to parent div
       }
-      
+     
+    }
+    
+    await makeHomeView();  
 
-     document.querySelectorAll('.like').forEach(item => {
-     item.onclick = async function(){
-      //Need to do something here
-      this.innerHTML = "wowzaaa" 
-       // var likeNumber = this.previousSibling.firstElementChild.firstElementChild.innerHTML.split(';')[1];
-       // console.log (likeNumber);
-       // await Model.addLike(6);
-     }
-   })
+  //    document.querySelectorAll('.like').forEach(item => {
+  //    item.onclick = async function(){
+  //     //Need to do something here
+  //     this.innerHTML = "wowzaaa" 
+  //      // var likeNumber = this.previousSibling.firstElementChild.firstElementChild.innerHTML.split(';')[1];
+  //      // console.log (likeNumber);
+  //      // await Model.addLike(6);
+  //    }
+  //  })
+
+  //  document.querySelectorAll('.like').forEach(item => {
+  //    item.addEventListener("click" , function(){
+  //      this.innerHTML = "wowza";
+  //    })
+  //  })
+
+  document.addEventListener('click', function (e) {
+    if (hasClass(e.target, 'like')) {
+       
+        e.target.innerHTML = "cool";
+        // Do your thing
+    } else if (hasClass(e.target, 'div')) {
+        // .test clicked
+        // Do your other thing
+    }
+}, false);
   
+
+function hasClass(elem, className) {
+    return elem.className.split(' ').indexOf(className) > -1;
+}
      
               
    </script>

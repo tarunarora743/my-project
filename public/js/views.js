@@ -15,9 +15,7 @@ const Views = {
 
 singlePostView : ``,
 
-mainPageView : ` <div id="three-images" class="flowtow">
-
-
+mainPageView : `   <div id="three-images" class="flowtow">      
 </div>
 
 <div id="target">
@@ -25,15 +23,16 @@ mainPageView : ` <div id="three-images" class="flowtow">
   <h4 style="text-align: center; color: rgb(114, 70, 131);">Recent Posts</h4>
   
  
+
 </div>
 
 
 <!--This is for popular posts-->
 <div class="containerdiv" id="righthandsidediv"> 
   <h4 style="text-align: center; color: rgb(114, 70, 131);">Popular Posts</h4>
- 
 </div>
-</div>` ,
+</div>
+` ,
 
 allPostsView : ` <div class="divforAllPostsView">
 <img src="http://robohash.org/arorag">
