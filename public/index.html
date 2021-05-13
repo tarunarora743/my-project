@@ -162,7 +162,6 @@
         document.getElementById("myposts").addEventListener("click", function(){
           if (Auth.userData){
             var contentdiv = ``;
-            var 
             for (var i=0; i<Auth.userData.user.posts.length; i++){
               contentdiv += `<div class="divforMyPostsView"><img src="${Auth.userData.user.posts[i].p_url}"></div>` ;
             }
