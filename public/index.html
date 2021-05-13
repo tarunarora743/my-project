@@ -27,7 +27,7 @@
               <li><a class="topmenu" id="allposts" href="#!/all-posts" >All Posts</a></li>
               
               
-              <li><a class="topmenu" href="#!/my-posts" >My Posts</a></li>
+              <li><a class="topmenu" id="myposts" href="#!/my-posts" >My Posts</a></li>
               
               
               <li><a class="topmenu" href="#whatis" >About</a></li>
@@ -45,7 +45,6 @@
 
         });
 
-        console.log("came here11")
 
      
 
@@ -145,6 +144,7 @@
   <script type="module"> //script for adding images by timestamp.. involves sorting the array of objects with their timestamp
     import{Model} from '/js/model.js'
     import {Views} from '/js/views.js'
+    import {Auth} from '/js/service.js'
         //example using js
         document.getElementById("allposts").addEventListener("click", function(){
           console.log("came here22")
@@ -154,9 +154,27 @@
         })
 
         document.getElementById("home").addEventListener("click", function(){
-          console.log("came here33")
           makeHomeView();
         })
+
+
+        //Event listener for myposts
+        document.getElementById("myposts").addEventListener("click", function(){
+          if (Auth.userData){
+            var contentdiv = ``;
+            var 
+            for (var i=0; i<Auth.userData.user.posts.length; i++){
+              contentdiv += `<div class="divforMyPostsView"><img src="${Auth.userData.user.posts[i].p_url}"></div>` ;
+            }
+            document.getElementById("bigdiv").innerHTML = `<div class="heading2">My Posts</div>`
+            document.getElementById("bigdiv").innerHTML += contentdiv;
+            
+          }else{
+            document.getElementById("bigdiv").innerHTML =  "<b>You have to login first</b>";
+          }
+        })
+
+      //Event listener for myposts above
 
 
     async function  makeHomeView(){
@@ -203,15 +221,6 @@
     
     await makeHomeView();  
 
-  //    document.querySelectorAll('.like').forEach(item => {
-  //    item.onclick = async function(){
-  //     //Need to do something here
-  //     this.innerHTML = "wowzaaa" 
-  //      // var likeNumber = this.previousSibling.firstElementChild.firstElementChild.innerHTML.split(';')[1];
-  //      // console.log (likeNumber);
-  //      // await Model.addLike(6);
-  //    }
-  //  })
 
   //  document.querySelectorAll('.like').forEach(item => {
   //    item.addEventListener("click" , function(){
@@ -225,6 +234,9 @@
         e.target.innerHTML = "cool";
         // Do your thing
     } else if (hasClass(e.target, 'div')) {
+        // .test clicked
+        // Do your other thing
+    }else if (hasClass(e.target, 'logout')) {
         // .test clicked
         // Do your other thing
     }

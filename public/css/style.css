@@ -16,6 +16,11 @@ img {
     text-align: center;
 }
 
+.heading2 {
+    background-color: gainsboro;
+    text-align: center;
+}
+
 #whatis {
     width: auto;
     background-color: gray;
@@ -132,6 +137,14 @@ nav{
 }
 
 .divforAllPostsView:hover{
+    background-color: aquamarine;
+}
+
+.divforMyPostsView{
+    border-bottom: 3px solid burlywood;
+}
+
+.divforMyPostsView:hover{
     background-color: aquamarine;
 }
 
