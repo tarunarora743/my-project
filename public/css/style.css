@@ -148,6 +148,18 @@ nav{
     color: blue;
 }
 
+.divcomments{    
+    height: 90%;
+    width: 20%;
+    display: inline-block;
+    text-align: center;
+}
+.divdelete{    
+    height: 90%;
+    display: inline-block;
+    text-align: center;
+}
+
 .divforAllPostsView{
     border-bottom: 3px solid burlywood;
 }

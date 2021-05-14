@@ -147,10 +147,20 @@
     import {Auth} from '/js/service.js'
         
         //Event listener for allposts
-        document.getElementById("allposts").addEventListener("click", function(){
-          var allPostsView = document.createElement('div');
-          allPostsView.innerHTML = Views.allPostsView ;
-          document.getElementById("bigdiv").innerHTML =  Views.allPostsView;
+        document.getElementById("allposts").addEventListener("click", async function(){
+        var postdata = await Model.getPosts2();
+        if (postdata.length >0){
+        var targetdiv = document.getElementById("bigdiv");
+        var div8 = ''      // ******Add a heading for all posts************
+        for (var i=0; i<postdata.length; i++){
+         div8 += `<div class="divforAllPostsView"><img src="${postdata[i].p_url}"><div class="divcaption">${postdata[i].p_caption} by  ${postdata[i].p_author.username} </div><div class="divcomments">Comments</div></div>`
+        }
+        document.getElementById("bigdiv").innerHTML =  div8;
+        //document.getElementById("bigdiv").innerHTML +="wowzaaa33333"  //change this line later
+        }else{
+          document.getElementById("bigdiv").innerHTML =  "No data found";
+        }
+
         })
 
         document.getElementById("home").addEventListener("click", function(){
@@ -161,15 +171,17 @@
         //Event listener for myposts
         document.getElementById("myposts").addEventListener("click", function(){
           if (Auth.userData){
-            var contentdiv = ``;
+            var contentdiv = Views.createPostView;
             for (var i=0; i<Auth.userData.user.posts.length; i++){
-              contentdiv += `<div class="divforMyPostsView"><img src="${Auth.userData.user.posts[i].p_url}"></div>` ;
+              contentdiv += `<div class="divforMyPostsView"><img src="${Auth.userData.user.posts[i].p_url}"><div class="divcaption">${Auth.userData.user.posts[i].p_caption}</div><div class="divcomments">Comments<ul><li>${Auth.userData.user.comment.c_content}</li></ul></div><div class="divdelete"><button name="${Auth.userData.user.posts[i].id}" class="delete" type=button>Delete</button></div></div>` ;
             }
             document.getElementById("bigdiv").innerHTML = `<div class="heading2">My Posts</div>`
             document.getElementById("bigdiv").innerHTML += contentdiv;
             
           }else{
+            var contentdiv = Views.createPostView;
             document.getElementById("bigdiv").innerHTML =  "<b>You have to login first</b>";
+            document.getElementById("bigdiv").innerHTML += contentdiv
           }
         })
 
