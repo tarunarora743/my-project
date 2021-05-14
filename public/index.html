@@ -34,16 +34,8 @@
               
           </ul>
       </nav>
-      <!--09May2021 Added the below section to change document view dependant upon -->
-      <script type="module">
-        //example using jquery
-        $('.topmenu').click(function(event){
-          //event.preventDefault();
-          $(this).css("color", "white");
-          
-          
+    
 
-        });
 
 
      
@@ -51,39 +43,7 @@
        
 
       </script>
-      <!--*****************09May2021 Added the above ************************************ -->
 
-
-        <!--08May2021script for loggin in -->
-        <script type="module">
-          import {Auth} from "/js/service.js" 
-  
-          var formElem = document.getElementById("loginform") 
-          formElem.onsubmit = async (e) => {
-            e.preventDefault();
-            var data = new FormData(formElem);
-            const username = data.get("username");
-            const password = data.get("password");
-  
-  
-            let result = await Auth.login(username, password);
-  
-            if (result.status ===200){
-              var newLoginLayout = document.getElementById("loginform");
-              newLoginLayout.innerHTML = `<a><b>Logged in as ${username} </b></a><input type="button" class="logout" value="Logout" style="float: right;">`
-            }else{
-              var newLoginFailLayout = document.getElementById("errorTarget");
-              var loginFailElement = document.createElement('a');
-              //clearing the input form
-              document.getElementById("username").value= '';
-              document.getElementById("password").value = '';
-
-              newLoginFailLayout.innerHTML = `<b style="color:red;">Login Failed, please try again</b>`;
-            }
-          }
-  
-         </script>
-        <!--******************************script for login implemented above-->
 
     <div id="content">
       <!-- Form for login added 8 May2021-->
@@ -140,94 +100,7 @@
 
 
 
-  <!--Script for doing the most recent and popular posts-->
-  <script type="module"> //script for adding images by timestamp.. involves sorting the array of objects with their timestamp
-    import{Model} from '/js/model.js'
-    import {Views} from '/js/views.js'
-    import {Auth} from '/js/service.js'
-        
-        //Event listener for allposts
-        document.getElementById("allposts").addEventListener("click", function(){
-          var allPostsView = document.createElement('div');
-          allPostsView.innerHTML = Views.allPostsView ;
-          document.getElementById("bigdiv").innerHTML =  Views.allPostsView;
-        })
-
-        document.getElementById("home").addEventListener("click", function(){
-          makeHomeView();
-        })
-
-
-        //Event listener for myposts
-        document.getElementById("myposts").addEventListener("click", function(){
-          if (Auth.userData){
-            var contentdiv = ``;
-            for (var i=0; i<Auth.userData.user.posts.length; i++){
-              contentdiv += `<div class="divforMyPostsView"><img src="${Auth.userData.user.posts[i].p_url}"></div>` ;
-            }
-            document.getElementById("bigdiv").innerHTML = `<div class="heading2">My Posts</div>`
-            document.getElementById("bigdiv").innerHTML += contentdiv;
-            
-          }else{
-            document.getElementById("bigdiv").innerHTML =  "<b>You have to login first</b>";
-          }
-        })
-
-      //Event listener for myposts above
-
-
-    async function  makeHomeView(){
-    var recentPostData = [];
-     
-     recentPostData = await Model.getPosts2();  
-
-
-     //making 3 random post layout
-     var mydata = recentPostData
-     document.getElementById("bigdiv").innerHTML =  Views.mainPageView;
-     for (var i=0; i<3; i++){
-                var index = Math.floor(Math.random() * mydata.length);
-                var div1 = document.createElement('div');        // Create an <img> element.
-                div1.innerHTML = '<img src='+mydata[index].p_url+'>' + '<a class="caption">'+ mydata[index].p_caption + ' by ' + mydata[index].p_author.username + ' <b>' + mydata[index].p_likes + '</b></a>';                 //giving the image url from data
-                document.getElementById('three-images').appendChild(div1);  //appending the image to the div
-              }       
-     var popularPostData = recentPostData;   
-     recentPostData.sort(function(a,b){
-      return new Date(b.published_at) - new Date(a.published_at);
-     });
-
-     //making recent posts layout
-     for (var i=0; i<10; i++){
-       var div4 = document.createElement('div');        // Create an <div> element.
-       div4.className = "divforposts"
-       //div4.innerHTML = '<img src='+recentPostData[i].p_url+'>' + '<a style="padding-bottom: 20px;">'+ recentPostData[i].p_caption + ' by ' + recentPostData[i].p_author.username + ' &nbsp &nbsp &nbsp' + recentPostData[i].published_at.split('T')[0] + ' <span style="color:blue;";><b>' + ' &nbsp' + recentPostData[i].p_likes + '</b></span></a><button class="like" type="button" style="float: right;">Like</button>';
-       div4.innerHTML = `<img src=${recentPostData[i].p_url}><div class="divcaption">${recentPostData[i].p_caption} by  ${recentPostData[i].p_author.username} </div><div class="divpublishedat"> ${recentPostData[i].published_at.split('T')[0]}</div> <div class="divlikes">${recentPostData[i].p_likes}</div><button class="like" type="button" name="${recentPostData[i].id}" style="float: right;">Like</button>`;                 //giving the image url from data
-       document.getElementById('lefthandsidediv').appendChild(div4);  //appending the element to parent div
-     }
-
-     //Making popular posts layout
-     popularPostData.sort(function(a,b){
-      return b.p_likes - a.p_likes;
-     });
- 
-      for (i=0; i<10; i++){
-        var div3 = document.createElement('div');        // Create an <div> element.
-        div3.className = "divforposts"
-        //div3.innerHTML = '<img src='+popularPostData[i].p_url+'>' + '<a style="padding-bottom: 20px;">'+ popularPostData[i].p_caption + ' by ' + popularPostData[i].p_author.username + ' &nbsp &nbsp &nbsp' + popularPostData[i].published_at.split("T" , 1) + ' <span style="color:blue;";><b>' + ' &nbsp' + popularPostData[i].p_likes + '</b></span></a><button class="like" type="button" style="float: right;">Like</button>';                 //giving the image url from data
-        div3.innerHTML = `<img src=${popularPostData[i].p_url}><div class="divcaption">${popularPostData[i].p_caption} by  ${popularPostData[i].p_author.username} </div><div class="divpublishedat"> ${popularPostData[i].published_at.split('T')[0]}</div> <div class="divlikes">${popularPostData[i].p_likes}</div><button class="like" type="button" name="${popularPostData[i].id}" style="float: right;">Like</button>`;            
-        document.getElementById('righthandsidediv').appendChild(div3);  //appending the element to parent div
-      }
-     
-    }
-    
-    await makeHomeView();  
-
-
   
-   
-     
-              
-   </script>
 
   
 

@@ -182,6 +182,28 @@ const Model = {
         return mydata2.slice(0,N);
     },
 
+     // posts, ordered by the number of likes
+     deletePost: async function(id, jwt) {
+        const rawResponse = await fetch(`/posts/${id}`, {
+            method: 'DELETE',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer '+jwt
+
+            },
+         });
+         const content = await rawResponse.json();
+             
+    
+          if (rawResponse.status === 200) {
+            
+            return content;
+          }else {
+              return "something went wrong";
+          }
+    },
+
     getRandom: function(arr, n) {
         var result = new Array(n),
             len = arr.length,

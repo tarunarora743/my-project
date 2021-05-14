@@ -45,5 +45,19 @@ allPostsView : ` <div class="divforAllPostsView">
 <div class="divforAllPostsView">
 <img src="http://robohash.org/arorak">
 <a>this is the sample image</a>
-</div>`
+</div>`,
+
+
+
+createPostView : `<form id="createPostform" style="margin-top: 10px;">
+<a style="margin-right: 5px;">New post (URL):</a>
+<input type="text" name="urlbox" id="posturl" placeholder="Image URL"/>
+<a style="margin-right: 5px;">Caption :</a>
+<input type="text" name="captionbox" id="captionbox" placeholder="caption"/>
+<input type="submit" value="Create a Post">
+<a id="errorTarget3"></a>
+</form> `
+
 }
+
+
