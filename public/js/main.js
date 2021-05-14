@@ -27,16 +27,47 @@
 // };
 
 import {Model} from './model.js'
+import {Auth} from './service.js'
+import {Views} from './views.js'
+
 
 window.onload = async function() {
     await Model.getPosts();
     await Model.getUsers();
     await Model.getComments();
-
-    console.log("wowza" , Model.data.posts);
-    console.log("wowza" , Model.data.users);
-    console.log("wowza" , Model.data.comments);
-    //console.log("wowza2", await Model.getPosts2());
 }
 
+
+ //Event listener for click
+ document.addEventListener('click', async function (e) {
+    if (hasClass(e.target, 'like')) {
+        var postId = e.target.name;
+        var currentLikes= parseInt(e.target.previousSibling.innerHTML) ;
+        var newLikes = currentLikes+1;
+        e.target.previousSibling.innerHTML = newLikes;
+        await Model.addLike(postId, newLikes);
+        makeHomeView();
+    } else if (hasClass(e.target, 'div')) {
+        // .test clicked
+        // Do your other thing
+    }else if (hasClass(e.target, 'logout')) {
+        
+        var targetform = document.getElementById("loginform")
+        var targethtml = `<a style="margin-right: 5px;">User :</a>
+        <input type="text" name="username" id="username" placeholder="Your username"/>
+        <a style="margin-right: 5px;">Password :</a>
+        <input type="password" name="password" id="password" placeholder="Your password"/>
+        <input type="submit">
+        <a id="errorTarget"></a>`
+
+        targetform.innerHTML = targethtml;
+        Auth.userData = null;
+
+    }
+  }, false);
+
+//function to check element has a particular class
+function hasClass(elem, className) {
+  return elem.className.split(' ').indexOf(className) > -1;
+}
 

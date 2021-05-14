@@ -132,6 +132,22 @@ nav{
     float: right;
 }
 
+.divcaption{    
+    width: 50%;
+    display: inline-block;
+}
+
+.divpublishedat{
+    width: 25%;
+    display: inline-block;
+}
+
+.divlikes{
+    width: 12%;
+    display: inline-block;
+    color: blue;
+}
+
 .divforAllPostsView{
     border-bottom: 3px solid burlywood;
 }

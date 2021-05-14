@@ -70,7 +70,7 @@
   
             if (result.status ===200){
               var newLoginLayout = document.getElementById("loginform");
-              newLoginLayout.innerHTML = `<a><b>Logged in as ${username} </b></a><input type="button" value="Logout" style="float: right;">`
+              newLoginLayout.innerHTML = `<a><b>Logged in as ${username} </b></a><input type="button" class="logout" value="Logout" style="float: right;">`
             }else{
               var newLoginFailLayout = document.getElementById("errorTarget");
               var loginFailElement = document.createElement('a');
@@ -145,9 +145,9 @@
     import{Model} from '/js/model.js'
     import {Views} from '/js/views.js'
     import {Auth} from '/js/service.js'
-        //example using js
+        
+        //Event listener for allposts
         document.getElementById("allposts").addEventListener("click", function(){
-          console.log("came here22")
           var allPostsView = document.createElement('div');
           allPostsView.innerHTML = Views.allPostsView ;
           document.getElementById("bigdiv").innerHTML =  Views.allPostsView;
@@ -200,7 +200,8 @@
      for (var i=0; i<10; i++){
        var div4 = document.createElement('div');        // Create an <div> element.
        div4.className = "divforposts"
-       div4.innerHTML = '<img src='+recentPostData[i].p_url+'>' + '<a style="padding-bottom: 20px;">'+ recentPostData[i].p_caption + ' by ' + recentPostData[i].p_author.username + ' &nbsp &nbsp &nbsp' + recentPostData[i].published_at.split('T')[0] + ' <span style="color:blue;";><b>' + ' &nbsp' + recentPostData[i].p_likes + '</b></span></a><button class="like" type="button" style="float: right;">Like</button>';                 //giving the image url from data
+       //div4.innerHTML = '<img src='+recentPostData[i].p_url+'>' + '<a style="padding-bottom: 20px;">'+ recentPostData[i].p_caption + ' by ' + recentPostData[i].p_author.username + ' &nbsp &nbsp &nbsp' + recentPostData[i].published_at.split('T')[0] + ' <span style="color:blue;";><b>' + ' &nbsp' + recentPostData[i].p_likes + '</b></span></a><button class="like" type="button" style="float: right;">Like</button>';
+       div4.innerHTML = `<img src=${recentPostData[i].p_url}><div class="divcaption">${recentPostData[i].p_caption} by  ${recentPostData[i].p_author.username} </div><div class="divpublishedat"> ${recentPostData[i].published_at.split('T')[0]}</div> <div class="divlikes">${recentPostData[i].p_likes}</div><button class="like" type="button" name="${recentPostData[i].id}" style="float: right;">Like</button>`;                 //giving the image url from data
        document.getElementById('lefthandsidediv').appendChild(div4);  //appending the element to parent div
      }
 
@@ -212,7 +213,8 @@
       for (i=0; i<10; i++){
         var div3 = document.createElement('div');        // Create an <div> element.
         div3.className = "divforposts"
-        div3.innerHTML = '<img src='+popularPostData[i].p_url+'>' + '<a style="padding-bottom: 20px;">'+ popularPostData[i].p_caption + ' by ' + popularPostData[i].p_author.username + ' &nbsp &nbsp &nbsp' + popularPostData[i].published_at.split("T" , 1) + ' <span style="color:blue;";><b>' + ' &nbsp' + popularPostData[i].p_likes + '</b></span></a><button class="like" type="button" style="float: right;">Like</button>';                 //giving the image url from data
+        //div3.innerHTML = '<img src='+popularPostData[i].p_url+'>' + '<a style="padding-bottom: 20px;">'+ popularPostData[i].p_caption + ' by ' + popularPostData[i].p_author.username + ' &nbsp &nbsp &nbsp' + popularPostData[i].published_at.split("T" , 1) + ' <span style="color:blue;";><b>' + ' &nbsp' + popularPostData[i].p_likes + '</b></span></a><button class="like" type="button" style="float: right;">Like</button>';                 //giving the image url from data
+        div3.innerHTML = `<img src=${popularPostData[i].p_url}><div class="divcaption">${popularPostData[i].p_caption} by  ${popularPostData[i].p_author.username} </div><div class="divpublishedat"> ${popularPostData[i].published_at.split('T')[0]}</div> <div class="divlikes">${popularPostData[i].p_likes}</div><button class="like" type="button" name="${popularPostData[i].id}" style="float: right;">Like</button>`;            
         document.getElementById('righthandsidediv').appendChild(div3);  //appending the element to parent div
       }
      
@@ -221,30 +223,8 @@
     await makeHomeView();  
 
 
-  //  document.querySelectorAll('.like').forEach(item => {
-  //    item.addEventListener("click" , function(){
-  //      this.innerHTML = "wowza";
-  //    })
-  //  })
-
-  document.addEventListener('click', function (e) {
-    if (hasClass(e.target, 'like')) {
-       
-        e.target.innerHTML = "cool";
-        // Do your thing
-    } else if (hasClass(e.target, 'div')) {
-        // .test clicked
-        // Do your other thing
-    }else if (hasClass(e.target, 'logout')) {
-        // .test clicked
-        // Do your other thing
-    }
-}, false);
   
-
-function hasClass(elem, className) {
-    return elem.className.split(' ').indexOf(className) > -1;
-}
+   
      
               
    </script>

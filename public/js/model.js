@@ -121,9 +121,9 @@ const Model = {
     //      by submitting a PUT request to the server API
     //      postId - is the id of the post
     // when the request is resolved, creates an "likeAdded" event
-    addLike: async function (postId) {
+    addLike: async function (postId, newLikeCount) {
         let requestbody = {
-            "p_likes": 12,
+            "p_likes": newLikeCount,
         }
     
         const rawResponse = await fetch(`/posts/${postId}`, {
